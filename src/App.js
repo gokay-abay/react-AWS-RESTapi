@@ -1,19 +1,19 @@
 import React from "react"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Home from "./components/Home"
+import StudentDetail from "./components/StudentDetail"
 
 export default function App() {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
+        <ul>{/*  */}</ul>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/studentdetail/:id">
+            <StudentDetail />
           </Route>
         </Switch>
       </div>

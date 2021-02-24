@@ -21,25 +21,31 @@ export default function Home() {
       })
   }
 
+  const putApi = async () => {
+    try {
+      const data = await fetch(API_INVOKE_URL + "/students", {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ student }),
+      })
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const submit = async (e) => {
     e.preventDefault()
-    fetch(API_INVOKE_URL + "/students", {
-      method: "PUT",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        student: {
-          studentId: student.studentId,
-          firstName: student.firstName,
-          lastName: student.lastName,
-        },
-      }),
+    putApi()
+    searchApi()
+    setStudent({
+      studentId: "",
+      firstName: "",
+      lastName: "",
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error("Error:", err))
   }
 
   useEffect(() => {
@@ -91,13 +97,19 @@ export default function Home() {
         <tbody>
           {students.map((student) => (
             <tr key={student.studentId}>
-              <td>{student.studentId}</td>
+              <td>
+                <Link to={`/studentDetail/${student.studentId}`}>
+                  {student.studentId}
+                </Link>
+              </td>
+
               <td>{student.firstName}</td>
               <td>{student.lastName}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Link to="/studentdetail">StudentDetail</Link>
     </div>
   )
 }
